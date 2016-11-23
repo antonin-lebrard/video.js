@@ -1496,13 +1496,14 @@ class Player extends Component {
       // Force value to between 0 and 1
       vol = Math.max(0, Math.min(1, parseFloat(percentAsDecimal)));
       this.cache_.volume = vol;
+      this.techCall_('setMuted', vol == 0);
       this.techCall_('setVolume', vol);
 
       return this;
     }
 
     // Default to 1 when returning current volume.
-    vol = parseFloat(this.techGet_('volume'));
+    vol = parseFloat(this.techGet_('muted') ? 0 : this.techGet_('volume'));
     return (isNaN(vol)) ? 1 : vol;
   }
 
